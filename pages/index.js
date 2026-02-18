@@ -8,15 +8,110 @@ export default function Home() {
   const router = useRouter();
   const [authenticated, setAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
+  
+  // Packing Checklist
+  const [packingItems, setPackingItems] = useState([]);
+  const [newPackingItem, setNewPackingItem] = useState('');
+  
+  // Places to Visit
+  const [places, setPlaces] = useState([]);
+  const [newPlaceName, setNewPlaceName] = useState('');
+  const [newPlaceAddress, setNewPlaceAddress] = useState('');
 
+  // Load data from localStorage
   useEffect(() => {
     const isAuth = localStorage.getItem('thailand-auth');
     if (isAuth !== 'authenticated') {
       router.push('/login');
     } else {
       setAuthenticated(true);
+      loadPackingList();
+      loadPlaces();
     }
   }, [router]);
+
+  // Load packing list from localStorage
+  const loadPackingList = () => {
+    const saved = localStorage.getItem('thailand-packing-list');
+    if (saved) {
+      setPackingItems(JSON.parse(saved));
+    } else {
+      // Pre-filled items
+      const defaultItems = [
+        { id: 1, text: 'Passport', checked: false },
+        { id: 2, text: 'Phone charger', checked: false },
+        { id: 3, text: 'Waterproof phone case', checked: false },
+        { id: 4, text: 'Swimwear', checked: false },
+        { id: 5, text: 'Sunscreen', checked: false },
+        { id: 6, text: 'Travel adapter', checked: false },
+        { id: 7, text: 'Hindu meal confirmation', checked: false },
+      ];
+      setPackingItems(defaultItems);
+      localStorage.setItem('thailand-packing-list', JSON.stringify(defaultItems));
+    }
+  };
+
+  // Load places from localStorage
+  const loadPlaces = () => {
+    const saved = localStorage.getItem('thailand-places');
+    if (saved) {
+      setPlaces(JSON.parse(saved));
+    }
+  };
+
+  // Add packing item
+  const addPackingItem = () => {
+    if (newPackingItem.trim()) {
+      const newItem = {
+        id: Date.now(),
+        text: newPackingItem,
+        checked: false,
+      };
+      const updated = [...packingItems, newItem];
+      setPackingItems(updated);
+      localStorage.setItem('thailand-packing-list', JSON.stringify(updated));
+      setNewPackingItem('');
+    }
+  };
+
+  // Toggle packing item
+  const togglePackingItem = (id) => {
+    const updated = packingItems.map(item =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    setPackingItems(updated);
+    localStorage.setItem('thailand-packing-list', JSON.stringify(updated));
+  };
+
+  // Remove packing item
+  const removePackingItem = (id) => {
+    const updated = packingItems.filter(item => item.id !== id);
+    setPackingItems(updated);
+    localStorage.setItem('thailand-packing-list', JSON.stringify(updated));
+  };
+
+  // Add place to visit
+  const addPlace = () => {
+    if (newPlaceName.trim()) {
+      const newPlace = {
+        id: Date.now(),
+        name: newPlaceName,
+        address: newPlaceAddress,
+      };
+      const updated = [...places, newPlace];
+      setPlaces(updated);
+      localStorage.setItem('thailand-places', JSON.stringify(updated));
+      setNewPlaceName('');
+      setNewPlaceAddress('');
+    }
+  };
+
+  // Remove place
+  const removePlace = (id) => {
+    const updated = places.filter(place => place.id !== id);
+    setPlaces(updated);
+    localStorage.setItem('thailand-places', JSON.stringify(updated));
+  };
 
   const handleLogout = () => {
     logout();
@@ -32,12 +127,14 @@ export default function Home() {
     return <div className={styles.loading}>Loading...</div>;
   }
 
+  const packedCount = packingItems.filter(item => item.checked).length;
+
   return (
     <div className={styles.container}>
       {/* HEADER */}
       <header className={styles.header}>
         <div className={styles.headerContent}>
-          <h1>🇹🇭 Thailand Adventure</h1>
+          <h1 className={styles.title}>🇹🇭 Thailand Adventure</h1>
           <p className={styles.subtitle}>{tripData.overview.subtitle}</p>
         </div>
         <button onClick={handleLogout} className={styles.logoutBtn}>
@@ -57,25 +154,37 @@ export default function Home() {
       {/* TAB NAVIGATION */}
       <nav className={styles.tabNav}>
         <button
-          className={activeTab === 'overview' ? styles.tabActive : ''}
+          className={activeTab === 'overview' ? `${styles.tabBtn} ${styles.active}` : styles.tabBtn}
           onClick={() => setActiveTab('overview')}
         >
           Overview
         </button>
         <button
-          className={activeTab === 'itinerary' ? styles.tabActive : ''}
+          className={activeTab === 'packing' ? `${styles.tabBtn} ${styles.active}` : styles.tabBtn}
+          onClick={() => setActiveTab('packing')}
+        >
+          Packing ({packedCount}/{packingItems.length})
+        </button>
+        <button
+          className={activeTab === 'places' ? `${styles.tabBtn} ${styles.active}` : styles.tabBtn}
+          onClick={() => setActiveTab('places')}
+        >
+          Places ({places.length})
+        </button>
+        <button
+          className={activeTab === 'itinerary' ? `${styles.tabBtn} ${styles.active}` : styles.tabBtn}
           onClick={() => setActiveTab('itinerary')}
         >
           Itinerary
         </button>
         <button
-          className={activeTab === 'confirmations' ? styles.tabActive : ''}
+          className={activeTab === 'confirmations' ? `${styles.tabBtn} ${styles.active}` : styles.tabBtn}
           onClick={() => setActiveTab('confirmations')}
         >
           Confirmations
         </button>
         <button
-          className={activeTab === 'budget' ? styles.tabActive : ''}
+          className={activeTab === 'budget' ? `${styles.tabBtn} ${styles.active}` : styles.tabBtn}
           onClick={() => setActiveTab('budget')}
         >
           Budget
@@ -179,10 +288,115 @@ export default function Home() {
           </section>
         )}
 
+        {/* PACKING CHECKLIST TAB */}
+        {activeTab === 'packing' && (
+          <section className={styles.tabSection}>
+            <div className={styles.packingHeader}>
+              <h2 className={styles.sectionTitle}>Packing Checklist</h2>
+              <div className={styles.progressBar}>
+                <div 
+                  className={styles.progressFill}
+                  style={{width: `${packingItems.length > 0 ? (packedCount / packingItems.length) * 100 : 0}%`}}
+                ></div>
+              </div>
+              <p className={styles.progressText}>{packedCount} of {packingItems.length} items packed</p>
+            </div>
+
+            <div className={styles.packingList}>
+              {packingItems.map(item => (
+                <div key={item.id} className={styles.packingItem}>
+                  <input
+                    type="checkbox"
+                    checked={item.checked}
+                    onChange={() => togglePackingItem(item.id)}
+                    className={styles.packingCheckbox}
+                  />
+                  <span className={`${styles.packingText} ${item.checked ? styles.checked : ''}`}>
+                    {item.text}
+                  </span>
+                  <button
+                    onClick={() => removePackingItem(item.id)}
+                    className={styles.removeBtn}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.addItemForm}>
+              <input
+                type="text"
+                value={newPackingItem}
+                onChange={(e) => setNewPackingItem(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && addPackingItem()}
+                placeholder="Add a new item..."
+                className={styles.itemInput}
+              />
+              <button onClick={addPackingItem} className={styles.addBtn}>
+                + Add Item
+              </button>
+            </div>
+          </section>
+        )}
+
+        {/* PLACES TO VISIT TAB */}
+        {activeTab === 'places' && (
+          <section className={styles.tabSection}>
+            <h2 className={styles.sectionTitle}>Places I Want to Go</h2>
+
+            <div className={styles.placesList}>
+              {places.length === 0 ? (
+                <p className={styles.emptyMessage}>No places added yet. Start planning your adventures!</p>
+              ) : (
+                places.map(place => (
+                  <div key={place.id} className={styles.placeCard}>
+                    <div className={styles.placeContent}>
+                      <h3 className={styles.placeName}>{place.name}</h3>
+                      {place.address && <p className={styles.placeAddress}>{place.address}</p>}
+                    </div>
+                    <button
+                      onClick={() => removePlace(place.id)}
+                      className={styles.removeBtn}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className={styles.addPlaceForm}>
+              <div className={styles.formGroup}>
+                <input
+                  type="text"
+                  value={newPlaceName}
+                  onChange={(e) => setNewPlaceName(e.target.value)}
+                  placeholder="Place name (e.g., Grand Palace)..."
+                  className={styles.placeInput}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <input
+                  type="text"
+                  value={newPlaceAddress}
+                  onChange={(e) => setNewPlaceAddress(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && addPlace()}
+                  placeholder="Address (optional)..."
+                  className={styles.placeInput}
+                />
+              </div>
+              <button onClick={addPlace} className={styles.addBtn}>
+                + Add Place
+              </button>
+            </div>
+          </section>
+        )}
+
         {/* ITINERARY TAB */}
         {activeTab === 'itinerary' && (
           <section className={styles.section}>
-            <h2>Complete Day-by-Day Itinerary</h2>
+            <h2 className={styles.sectionTitle}>Complete Day-by-Day Itinerary</h2>
             <div className={styles.itineraryList}>
               {tripData.itinerary.map((day, idx) => (
                 <div key={idx} className={styles.dayCard}>
@@ -267,7 +481,7 @@ export default function Home() {
         {/* CONFIRMATIONS TAB */}
         {activeTab === 'confirmations' && (
           <section className={styles.section}>
-            <h2>All Confirmation Numbers</h2>
+            <h2 className={styles.sectionTitle}>All Confirmation Numbers</h2>
             <div className={styles.confirmationsGrid}>
               <div className={styles.confirmCard}>
                 <h4>Etihad Airways (All International)</h4>
@@ -320,7 +534,7 @@ export default function Home() {
         {/* BUDGET TAB */}
         {activeTab === 'budget' && (
           <section className={styles.section}>
-            <h2>Trip Costs Breakdown</h2>
+            <h2 className={styles.sectionTitle}>Trip Costs Breakdown</h2>
             <div className={styles.costsList}>
               {Object.entries(tripData.costs).map(([key, value]) => {
                 if (key === 'total') {
