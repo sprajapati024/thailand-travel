@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { authenticate } from '../lib/auth';
-import styles from '../styles/Login.module.css';
 
 export default function Login() {
   const [password, setPassword] = useState('');
@@ -33,41 +32,46 @@ export default function Login() {
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <div className={styles.loginBox}>
-        <div className={styles.header}>
-          <h1>🇹🇭</h1>
-          <h2>Thailand Adventure 2026</h2>
-          <p>Enter password to view the complete itinerary</p>
+    <div className="min-h-screen bg-black flex items-center justify-center px-4">
+      <div className="w-full max-w-md space-y-8">
+        {/* Header */}
+        <div className="text-center space-y-4">
+          <div className="text-6xl">🇹🇭</div>
+          <h1 className="text-3xl font-mono font-bold tracking-tight">THAILAND 2026</h1>
+          <p className="text-neutral-400 text-sm">Enter password to view the dashboard</p>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password"
-              className={styles.input}
-              disabled={loading}
-              autoFocus
-            />
-          </div>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 text-white placeholder-neutral-600 font-mono text-sm focus:outline-none focus:border-amber-500 transition-colors"
+            disabled={loading}
+            autoFocus
+          />
 
-          {error && <div className={styles.error}>{error}</div>}
+          {error && (
+            <div className="px-4 py-2 bg-red-950 border border-red-700 text-red-300 text-sm font-mono">
+              {error}
+            </div>
+          )}
 
           <button
             type="submit"
-            className={styles.button}
             disabled={loading}
+            className="w-full px-4 py-3 bg-amber-500 text-black font-mono font-bold text-sm hover:bg-amber-600 disabled:opacity-50 transition-colors"
           >
-            {loading ? 'Checking...' : 'View Dashboard'}
+            {loading ? 'Checking...' : 'Login'}
           </button>
         </form>
 
-        <div className={styles.footer}>
-          <p>Shirin & Zeel's Trip to Thailand</p>
-          <p className={styles.dates}>April 3-17, 2026</p>
+        {/* Footer */}
+        <div className="text-center space-y-2 pt-8 border-t border-neutral-800">
+          <p className="text-neutral-500 text-sm">Shirin & Zeel's Adventure</p>
+          <p className="text-neutral-600 text-xs font-mono">April 3-17, 2026</p>
         </div>
       </div>
     </div>
