@@ -1,0 +1,665 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding-top: 20px;
+}
+
+.header {
+  background: white;
+  padding: 40px;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.header h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.quickInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #667eea;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.logoutBtn {
+  padding: 10px 20px;
+  background: #e74c3c;
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.logoutBtn:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+  padding: 0 20px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  flex-wrap: wrap;
+}
+
+.nav button {
+  padding: 10px 20px;
+  background: white;
+  color: #333;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.nav button:hover {
+  background: #f0f0f0;
+}
+
+.nav button.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.section {
+  background: white;
+  padding: 40px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.section h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #333;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 15px;
+}
+
+.section h3 {
+  font-size: 22px;
+  margin: 25px 0 15px 0;
+  color: #333;
+}
+
+.section h4 {
+  font-size: 18px;
+  margin: 15px 0 10px 0;
+  color: #333;
+}
+
+.section h5 {
+  font-size: 16px;
+  margin: 15px 0 10px 0;
+  color: #667eea;
+  font-weight: 700;
+}
+
+/* Overview Grid */
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.card h3 {
+  color: white;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card small {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+}
+
+/* Route */
+.route {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.route > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.city {
+  background: #667eea;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.arrow {
+  font-size: 20px;
+  color: #667eea;
+  font-weight: 700;
+}
+
+/* Notes Section */
+.notesSection {
+  background: #fff9e6;
+  border-left: 4px solid #f39c12;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.notesSection h3 {
+  color: #f39c12;
+}
+
+.noteItem {
+  margin: 15px 0;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+}
+
+.noteItem strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Itinerary */
+.itineraryList {
+  display: grid;
+  gap: 20px;
+}
+
+.dayCard {
+  background: #f9f9f9;
+  border-left: 5px solid #667eea;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dayHeader {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dayHeader h3 {
+  color: white;
+  margin: 0;
+  font-size: 18px;
+}
+
+.date {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.dayContent {
+  padding: 20px;
+}
+
+.location {
+  color: #667eea;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.flights,
+.hotel,
+.activities,
+.festival {
+  margin: 15px 0;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+}
+
+.flightDetail {
+  background: #f0f4ff;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border-left: 3px solid #667eea;
+}
+
+.flightDetail div {
+  margin: 5px 0;
+}
+
+.hotel {
+  background: #f0fff4;
+  border-left: 3px solid #27ae60;
+}
+
+.activities {
+  background: #fff5f0;
+  border-left: 3px solid #e74c3c;
+}
+
+.festival {
+  background: #fffaf0;
+  border-left: 3px solid #f39c12;
+  font-weight: 600;
+}
+
+.small {
+  font-size: 13px;
+  color: #666;
+}
+
+.booking {
+  background: #667eea;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.note {
+  color: #666;
+  font-style: italic;
+  margin-top: 10px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.amenity {
+  font-size: 13px;
+  color: #27ae60;
+  margin: 5px 0;
+}
+
+.activities ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.activities li {
+  padding: 8px 0;
+  padding-left: 25px;
+  position: relative;
+}
+
+.activities li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+/* Confirmations */
+.confirmationsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.confirmCard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.confirmCard h4 {
+  color: white;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.confirmCard code {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  word-break: break-all;
+}
+
+/* Costs */
+.costsList {
+  max-width: 600px;
+}
+
+.costItem,
+.costTotal {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.costTotal {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: none;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.amount {
+  font-weight: 700;
+  color: #667eea;
+}
+
+.costTotal .amount {
+  color: white;
+}
+
+/* Songkran Section */
+.songkranSection {
+  margin: 30px 0;
+}
+
+.checkList {
+  list-style: none;
+  padding-left: 0;
+}
+
+.checkList li {
+  padding: 10px;
+  background: #f9f9f9;
+  margin: 8px 0;
+  border-radius: 6px;
+  border-left: 3px solid #f39c12;
+}
+
+.areaCard {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  border-left: 3px solid #667eea;
+}
+
+.areaCard h4 {
+  color: #667eea;
+  margin: 0 0 8px 0;
+}
+
+.areaCard p {
+  margin: 0;
+  color: #666;
+}
+
+/* Info Sections */
+.infoSection {
+  margin: 30px 0;
+}
+
+.weatherGrid,
+.gemsGrid,
+.veggieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.weatherCard,
+.gemCard,
+.veggieCard,
+.tripCard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.weatherCard h4,
+.gemCard h4,
+.veggieCard h4,
+.tripCard h4 {
+  color: white;
+  margin: 0 0 12px 0;
+  font-size: 16px;
+}
+
+.weatherCard div,
+.weatherCard p,
+.gemCard p,
+.veggieCard p,
+.tripCard p {
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.tip {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.tripDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+  font-size: 12px;
+}
+
+.specialty {
+  font-weight: 600;
+  color: #fff9e6;
+}
+
+.type {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.diet {
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Thai Phrases Table */
+.phrasesTable {
+  display: grid;
+  gap: 10px;
+}
+
+.phraseRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.english {
+  font-weight: 600;
+  color: #333;
+}
+
+.thai {
+  font-size: 18px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.pronunciation {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Emergency Card */
+.emergencyCard {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.emergencyCard h4 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.emergencyCard p {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.emergencyCard strong {
+  display: inline-block;
+  min-width: 100px;
+}
+
+/* Footer */
+.footer {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  margin-top: 40px;
+}
+
+.footer p {
+  margin: 5px 0;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: white;
+  font-size: 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .nav {
+    padding: 0 10px;
+    gap: 8px;
+  }
+
+  .nav button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .section {
+    padding: 20px;
+    margin-bottom: 15px;
+  }
+
+  .section h2 {
+    font-size: 22px;
+  }
+
+  .section h3 {
+    font-size: 18px;
+  }
+
+  .overviewGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .weatherGrid,
+  .gemsGrid,
+  .veggieGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .phraseRow {
+    grid-template-columns: 1fr;
+  }
+
+  .dayHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .date {
+    margin-top: 10px;
+  }
+}
