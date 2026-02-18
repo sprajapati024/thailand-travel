@@ -1,7 +1,4 @@
 {
-  "name": "thailand-travel",
-  "version": 2,
   "buildCommand": "npm run build",
-  "framework": "nextjs",
-  "env": []
+  "framework": "nextjs"
 }
