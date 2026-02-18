@@ -11,14 +11,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1a2a4a 0%, #2d3d5c 100%);
   min-height: 100vh;
-  color: #333;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  color: #0f9e8a;
 }
 
 a {
