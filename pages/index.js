@@ -7,7 +7,7 @@ import styles from '../styles/Home.module.css';
 export default function Home() {
   const router = useRouter();
   const [authenticated, setAuthenticated] = useState(false);
-  const [activeSection, setActiveSection] = useState('overview');
+  const [activeTab, setActiveTab] = useState('overview');
 
   useEffect(() => {
     const isAuth = localStorage.getItem('thailand-auth');
@@ -23,124 +23,164 @@ export default function Home() {
     router.push('/login');
   };
 
+  // Calculate countdown
+  const departureDate = new Date('2026-04-03').getTime();
+  const today = new Date().getTime();
+  const daysUntil = Math.ceil((departureDate - today) / (1000 * 60 * 60 * 24));
+
   if (!authenticated) {
     return <div className={styles.loading}>Loading...</div>;
   }
 
   return (
     <div className={styles.container}>
+      {/* HEADER */}
       <header className={styles.header}>
         <div className={styles.headerContent}>
-          <h1>🇹🇭 {tripData.overview.title}</h1>
+          <h1>🇹🇭 Thailand Adventure</h1>
           <p className={styles.subtitle}>{tripData.overview.subtitle}</p>
-          <div className={styles.quickInfo}>
-            <span>{tripData.overview.dates}</span>
-            <span>•</span>
-            <span>{tripData.overview.duration}</span>
-            <span>•</span>
-            <span>{tripData.overview.flights} Flights</span>
-            <span>•</span>
-            <span>{tripData.overview.hotels} Hotels</span>
-          </div>
         </div>
         <button onClick={handleLogout} className={styles.logoutBtn}>
-          Logout
+          ↪ Logout
         </button>
       </header>
 
-      <nav className={styles.nav}>
+      {/* COUNTDOWN BANNER */}
+      <div className={styles.countdownBanner}>
+        <div className={styles.countdownContent}>
+          <div className={styles.countdownValue}>{daysUntil}</div>
+          <div className={styles.countdownLabel}>Days until departure</div>
+        </div>
+        <div className={styles.countdownDates}>{tripData.overview.dates}</div>
+      </div>
+
+      {/* TAB NAVIGATION */}
+      <nav className={styles.tabNav}>
         <button
-          className={activeSection === 'overview' ? styles.active : ''}
-          onClick={() => setActiveSection('overview')}
+          className={activeTab === 'overview' ? styles.tabActive : ''}
+          onClick={() => setActiveTab('overview')}
         >
           Overview
         </button>
         <button
-          className={activeSection === 'itinerary' ? styles.active : ''}
-          onClick={() => setActiveSection('itinerary')}
+          className={activeTab === 'itinerary' ? styles.tabActive : ''}
+          onClick={() => setActiveTab('itinerary')}
         >
-          Full Itinerary
+          Itinerary
         </button>
         <button
-          className={activeSection === 'confirmations' ? styles.active : ''}
-          onClick={() => setActiveSection('confirmations')}
+          className={activeTab === 'confirmations' ? styles.tabActive : ''}
+          onClick={() => setActiveTab('confirmations')}
         >
           Confirmations
         </button>
         <button
-          className={activeSection === 'costs' ? styles.active : ''}
-          onClick={() => setActiveSection('costs')}
+          className={activeTab === 'budget' ? styles.tabActive : ''}
+          onClick={() => setActiveTab('budget')}
         >
-          Costs
-        </button>
-        <button
-          className={activeSection === 'songkran' ? styles.active : ''}
-          onClick={() => setActiveSection('songkran')}
-        >
-          Songkran Festival
-        </button>
-        <button
-          className={activeSection === 'info' ? styles.active : ''}
-          onClick={() => setActiveSection('info')}
-        >
-          Travel Info
+          Budget
         </button>
       </nav>
 
       <main className={styles.main}>
-        {/* OVERVIEW SECTION */}
-        {activeSection === 'overview' && (
-          <section className={styles.section}>
-            <h2>Trip Overview</h2>
-            <div className={styles.overviewGrid}>
-              <div className={styles.card}>
-                <h3>📅 Duration</h3>
-                <p>{tripData.overview.duration}</p>
-                <small>{tripData.overview.dates}</small>
+        {/* OVERVIEW TAB */}
+        {activeTab === 'overview' && (
+          <section className={styles.tabSection}>
+            <div className={styles.summaryCards}>
+              {/* BUDGET CARD */}
+              <div className={styles.budgetCard}>
+                <div className={styles.budgetLabel}>Total Trip Cost</div>
+                <div className={styles.budgetAmount}>CA $5,772</div>
+                <div className={styles.budgetBreakdown}>
+                  <span>7 Flights • 5 Hotels • 14 Days</span>
+                </div>
               </div>
-              <div className={styles.card}>
-                <h3>✈️ Flights</h3>
-                <p>{tripData.overview.flights} Flights</p>
-                <small>Booking: {tripData.overview.mainBooking}</small>
-              </div>
-              <div className={styles.card}>
-                <h3>🏨 Hotels</h3>
-                <p>{tripData.overview.hotels} Hotels</p>
-                <small>4 cities</small>
-              </div>
-              <div className={styles.card}>
-                <h3>💰 Total Cost</h3>
-                <p>{tripData.overview.totalCost}</p>
-                <small>All-inclusive</small>
+              
+              {/* TRIP INFO CARD */}
+              <div className={styles.infoCard}>
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Duration</span>
+                  <span className={styles.infoValue}>14 Days</span>
+                </div>
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Flights</span>
+                  <span className={styles.infoValue}>7 Segments</span>
+                </div>
+                <div className={styles.infoRow}>
+                  <span className={styles.infoLabel}>Hotels</span>
+                  <span className={styles.infoValue}>5 Cities</span>
+                </div>
               </div>
             </div>
 
-            <div className={styles.section}>
-              <h3>Route</h3>
-              <div className={styles.route}>
+            <h2 className={styles.sectionTitle}>Your Route</h2>
+            <div className={styles.routeContainer}>
+              <div className={styles.routePath}>
                 {tripData.overview.route.map((city, idx) => (
-                  <div key={idx}>
-                    <span className={styles.city}>{city}</span>
-                    {idx < tripData.overview.route.length - 1 && <span className={styles.arrow}>→</span>}
+                  <div key={idx} className={styles.routeCity}>
+                    <div className={styles.cityDot}></div>
+                    <div className={styles.cityName}>{city}</div>
+                    {idx < tripData.overview.route.length - 1 && <div className={styles.routeLine}></div>}
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className={styles.notesSection}>
-              <h3>⚠️ Important Notes</h3>
-              {tripData.importantNotes.map((note, idx) => (
-                <div key={idx} className={styles.noteItem}>
-                  <strong>{note.icon} {note.title}</strong>
-                  <p>{note.detail}</p>
+            <h2 className={styles.sectionTitle}>Flight Highlights</h2>
+            <div className={styles.flightsOverview}>
+              {tripData.itinerary.filter(day => day.flights).map((day, idx) => (
+                <div key={idx} className={styles.boardingPass}>
+                  <div className={styles.boardingPassTop}>
+                    <div>
+                      <div className={styles.from}>{day.flights[0].from.split('(')[0]}</div>
+                      <div className={styles.code}>{day.flights[0].from.match(/\(([^)]+)\)/)[1]}</div>
+                    </div>
+                    <div className={styles.flightNum}>{day.flights[0].flight}</div>
+                    <div className={styles.alignRight}>
+                      <div className={styles.to}>{day.flights[0].to.split('(')[0]}</div>
+                      <div className={styles.code}>{day.flights[0].to.match(/\(([^)]+)\)/)[1]}</div>
+                    </div>
+                  </div>
+                  <div className={styles.boardingPassDivider}></div>
+                  <div className={styles.boardingPassBottom}>
+                    <div>
+                      <div className={styles.label}>Time</div>
+                      <div className={styles.value}>{day.flights[0].time}</div>
+                    </div>
+                    <div>
+                      <div className={styles.label}>Date</div>
+                      <div className={styles.value}>{day.date}</div>
+                    </div>
+                    <div>
+                      <div className={styles.label}>Duration</div>
+                      <div className={styles.value}>{day.flights[0].duration}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <h2 className={styles.sectionTitle}>Hotel Stays</h2>
+            <div className={styles.hotelsGrid}>
+              {tripData.itinerary.filter(day => day.hotel).map((day, idx) => (
+                <div key={idx} className={styles.hotelCard}>
+                  <div className={styles.hotelName}>{day.hotel.name}</div>
+                  <div className={styles.hotelLocation}>{day.hotel.address}</div>
+                  <div className={styles.hotelDates}>
+                    <span>📅 {day.hotel.dates}</span>
+                  </div>
+                  <div className={styles.hotelConfirm}>
+                    <span className={styles.confirmLabel}>Confirmation:</span>
+                    <code className={styles.confirmCode}>{day.hotel.confirmation}</code>
+                  </div>
                 </div>
               ))}
             </div>
           </section>
         )}
 
-        {/* FULL ITINERARY SECTION */}
-        {activeSection === 'itinerary' && (
+        {/* ITINERARY TAB */}
+        {activeTab === 'itinerary' && (
           <section className={styles.section}>
             <h2>Complete Day-by-Day Itinerary</h2>
             <div className={styles.itineraryList}>
@@ -224,8 +264,8 @@ export default function Home() {
           </section>
         )}
 
-        {/* CONFIRMATIONS SECTION */}
-        {activeSection === 'confirmations' && (
+        {/* CONFIRMATIONS TAB */}
+        {activeTab === 'confirmations' && (
           <section className={styles.section}>
             <h2>All Confirmation Numbers</h2>
             <div className={styles.confirmationsGrid}>
@@ -277,8 +317,8 @@ export default function Home() {
           </section>
         )}
 
-        {/* COSTS SECTION */}
-        {activeSection === 'costs' && (
+        {/* BUDGET TAB */}
+        {activeTab === 'budget' && (
           <section className={styles.section}>
             <h2>Trip Costs Breakdown</h2>
             <div className={styles.costsList}>
@@ -300,127 +340,6 @@ export default function Home() {
                   </div>
                 );
               })}
-            </div>
-          </section>
-        )}
-
-        {/* SONGKRAN SECTION */}
-        {activeSection === 'songkran' && (
-          <section className={styles.section}>
-            <h2>🎉 Songkran Festival (April 13-15)</h2>
-            <div className={styles.card}>
-              <p><strong>Location:</strong> {tripData.songkran.location}</p>
-              <p><strong>Dates:</strong> {tripData.songkran.dates}</p>
-              <p><strong>Description:</strong> {tripData.songkran.description}</p>
-            </div>
-
-            <div className={styles.songkranSection}>
-              <h3>What to Bring</h3>
-              <ul className={styles.checkList}>
-                {tripData.songkran.whatToBring.map((item, idx) => (
-                  <li key={idx}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className={styles.songkranSection}>
-              <h3>Best Areas for Celebrations</h3>
-              {tripData.songkran.bestAreas.map((area, idx) => (
-                <div key={idx} className={styles.areaCard}>
-                  <h4>{area.area}</h4>
-                  <p>{area.description}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* TRAVEL INFO SECTION */}
-        {activeSection === 'info' && (
-          <section className={styles.section}>
-            <h2>Travel Information</h2>
-
-            <div className={styles.infoSection}>
-              <h3>☀️ Weather by City</h3>
-              <div className={styles.weatherGrid}>
-                {tripData.weather.map((w, idx) => (
-                  <div key={idx} className={styles.weatherCard}>
-                    <h4>{w.city}</h4>
-                    <div><strong>Temp:</strong> {w.temp}</div>
-                    <div><strong>Humidity:</strong> {w.humidity}</div>
-                    <div><strong>Rain:</strong> {w.rain}</div>
-                    <div className={styles.tip}>💡 {w.tip}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.infoSection}>
-              <h3>🏝️ Day Trips from Phuket</h3>
-              {tripData.dayTrips.map((trip, idx) => (
-                <div key={idx} className={styles.tripCard}>
-                  <h4>{trip.name}</h4>
-                  <p>{trip.description}</p>
-                  <div className={styles.tripDetails}>
-                    <span>⏱️ {trip.duration}</span>
-                    <span>🚤 {trip.transport}</span>
-                    <span>💰 {trip.cost}</span>
-                  </div>
-                  <div className={styles.tip}>💡 {trip.tip}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.infoSection}>
-              <h3>☕ Hidden Gems in Bangkok</h3>
-              <div className={styles.gemsGrid}>
-                {tripData.hiddenGems.map((gem, idx) => (
-                  <div key={idx} className={styles.gemCard}>
-                    <h4>{gem.icon} {gem.name}</h4>
-                    <p className={styles.location}>{gem.location}</p>
-                    <p>{gem.vibe}</p>
-                    <p className={styles.specialty}>✨ {gem.specialty}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.infoSection}>
-              <h3>🥗 Vegetarian & Vegan Options (for Shirin!)</h3>
-              <div className={styles.veggieGrid}>
-                {tripData.vegetarianGuide.map((place, idx) => (
-                  <div key={idx} className={styles.veggieCard}>
-                    <h4>{place.icon} {place.name}</h4>
-                    <p className={styles.type}>{place.type}</p>
-                    <p>✨ {place.specialty}</p>
-                    <p className={styles.diet}>Diet: {place.diet}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.infoSection}>
-              <h3>🗣️ Useful Thai Phrases</h3>
-              <div className={styles.phrasesTable}>
-                {tripData.thaiPhrases.map((phrase, idx) => (
-                  <div key={idx} className={styles.phraseRow}>
-                    <div className={styles.english}>{phrase.english}</div>
-                    <div className={styles.thai}>{phrase.thai}</div>
-                    <div className={styles.pronunciation}>{phrase.pronunciation}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.infoSection}>
-              <h3>🚨 Emergency Contacts</h3>
-              <div className={styles.emergencyCard}>
-                <h4>{tripData.emergencyContacts.embassy.name}</h4>
-                <p><strong>Address:</strong> {tripData.emergencyContacts.embassy.address}</p>
-                <p><strong>Local:</strong> {tripData.emergencyContacts.embassy.phone}</p>
-                <p><strong>Emergency (Canada):</strong> {tripData.emergencyContacts.embassy.emergency}</p>
-                <p><strong>Hours:</strong> {tripData.emergencyContacts.embassy.hours}</p>
-              </div>
             </div>
           </section>
         )}
