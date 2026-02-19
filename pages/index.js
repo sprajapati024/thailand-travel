@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { logout } from '../lib/auth';
 import { tripData } from '../lib/tripData';
+import CountdownTimer from '../components/CountdownTimer';
 
 export default function Home() {
   const router = useRouter();
@@ -271,11 +272,8 @@ export default function Home() {
 function OverviewTab({ daysUntil, packedCount, packingItems }) {
   return (
     <div className="space-y-6 sm:space-y-8">
-      {/* Countdown */}
-      <div className="border border-neutral-800 p-6 sm:p-8 space-y-2">
-        <div className="text-4xl sm:text-5xl font-bold font-mono text-amber-500">{daysUntil}</div>
-        <div className="text-sm text-neutral-400">days until departure</div>
-      </div>
+      {/* Enhanced Countdown Timer */}
+      <CountdownTimer />
 
       {/* Trip Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
