@@ -6,6 +6,7 @@ const navItems = [
   { id: 'packing', label: 'Packing', icon: Package },
   { id: 'todo', label: 'Todo', icon: CheckSquare },
   { id: 'details', label: 'Trip Details', icon: MapPin },
+  { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
 export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }) {
