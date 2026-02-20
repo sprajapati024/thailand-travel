@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Plane } from 'lucide-react';
 
 export default function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState({
@@ -6,7 +7,6 @@ export default function CountdownTimer() {
     hours: 0,
     minutes: 0,
     seconds: 0,
-    percentDays: 0
   });
 
   useEffect(() => {
@@ -21,26 +21,10 @@ export default function CountdownTimer() {
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        // Calculate percentage of total 14-day trip already "locked in"
-        const totalTripDays = 14;
-        const percentDays = Math.round((days / totalTripDays) * 100);
 
-        setTimeLeft({
-          days,
-          hours,
-          minutes,
-          seconds,
-          percentDays
-        });
+        setTimeLeft({ days, hours, minutes, seconds });
       } else {
-        setTimeLeft({
-          days: 0,
-          hours: 0,
-          minutes: 0,
-          seconds: 0,
-          percentDays: 0
-        });
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
     };
 
@@ -52,78 +36,45 @@ export default function CountdownTimer() {
 
   const TimeUnit = ({ value, label }) => (
     <div className="flex flex-col items-center">
-      <div className="bg-neutral-900 border-2 border-amber-500 rounded-lg p-3 sm:p-4 min-w-16 sm:min-w-20">
-        <div className="text-2xl sm:text-4xl font-bold font-mono text-amber-500 text-center">
+      <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-4 min-w-[70px] lg:min-w-[90px] shadow-lg shadow-blue-500/20">
+        <div className="text-3xl lg:text-5xl font-bold text-white text-center tabular-nums">
           {String(value).padStart(2, '0')}
         </div>
       </div>
-      <div className="text-xs sm:text-sm text-neutral-400 uppercase tracking-widest mt-2 font-mono">
+      <div className="text-xs lg:text-sm font-medium text-slate-500 uppercase tracking-wider mt-3">
         {label}
       </div>
     </div>
   );
 
   return (
-    <div className="space-y-6">
-      {/* Main Countdown */}
-      <div className="border border-amber-500/30 bg-gradient-to-br from-neutral-900 to-black p-6 sm:p-8 rounded-lg overflow-hidden relative">
-        {/* Background glow effect */}
-        <div className="absolute -top-20 -right-20 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
+    <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 lg:p-8 overflow-hidden relative">
+      {/* Background decoration */}
+      <div className="absolute -top-12 -right-12 w-32 h-32 bg-blue-100 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-violet-100 rounded-full blur-2xl"></div>
+      
+      <div className="relative z-10">
+        {/* Header */}
+        <div className="flex items-center justify-center gap-2 mb-6 lg:mb-8">
+          <Plane className="w-5 h-5 text-blue-500" />
+          <span className="text-sm lg:text-base font-medium text-slate-500 uppercase tracking-widest">
+            Countdown to Departure
+          </span>
+        </div>
         
-        <div className="relative z-10">
-          <h2 className="text-lg sm:text-xl font-mono text-neutral-400 mb-6 uppercase tracking-widest">
-            ✈️ Time to Thailand
-          </h2>
-          
-          {/* Countdown Units */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
-            <TimeUnit value={timeLeft.days} label="Days" />
-            <TimeUnit value={timeLeft.hours} label="Hours" />
-            <TimeUnit value={timeLeft.minutes} label="Minutes" />
-            <TimeUnit value={timeLeft.seconds} label="Seconds" />
-          </div>
+        {/* Countdown Units */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
+          <TimeUnit value={timeLeft.days} label="Days" />
+          <TimeUnit value={timeLeft.hours} label="Hours" />
+          <TimeUnit value={timeLeft.minutes} label="Minutes" />
+          <TimeUnit value={timeLeft.seconds} label="Seconds" />
+        </div>
 
-          {/* Detailed text */}
-          <div className="text-center pt-4 border-t border-neutral-800">
-            <p className="text-sm sm:text-base text-neutral-300 font-mono">
-              Departure: <span className="text-amber-500 font-bold">Friday, April 3, 2026 @ 3:10 PM</span>
-            </p>
-            <p className="text-xs text-neutral-500 mt-2">EY22 • Toronto → Abu Dhabi</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Trip Progress Bar */}
-      <div className="border border-neutral-800 p-4 sm:p-6 rounded-lg">
-        <div className="flex justify-between items-center mb-3">
-          <span className="text-sm font-mono text-neutral-400 uppercase">14-Day Trip</span>
-          <span className="text-xs font-mono text-amber-500">{timeLeft.percentDays}% wait time remaining</span>
-        </div>
-        <div className="w-full bg-neutral-900 rounded-full h-2 overflow-hidden">
-          <div 
-            className="h-full bg-gradient-to-r from-amber-500 to-amber-600 rounded-full transition-all duration-1000"
-            style={{ width: `${100 - timeLeft.percentDays}%` }}
-          ></div>
-        </div>
-        <p className="text-xs text-neutral-500 mt-3">
-          {timeLeft.days > 0 
-            ? `Get ready! ${timeLeft.days} days to pack, plan & get excited! 🎉`
-            : 'The adventure has begun! Have an amazing trip! 🌴'
-          }
-        </p>
-      </div>
-
-      {/* Quick Trip Facts */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="border border-neutral-800 p-4 rounded-lg">
-          <div className="text-xs text-neutral-500 uppercase tracking-wide mb-2">Duration</div>
-          <div className="text-xl sm:text-2xl font-mono font-bold text-white">14 Days</div>
-          <div className="text-xs text-neutral-400 mt-1">Apr 3-17, 2026</div>
-        </div>
-        <div className="border border-neutral-800 p-4 rounded-lg">
-          <div className="text-xs text-neutral-500 uppercase tracking-wide mb-2">Highlight</div>
-          <div className="text-xl sm:text-2xl font-mono font-bold text-amber-500">Songkran!</div>
-          <div className="text-xs text-neutral-400 mt-1">Apr 13-15 in Phuket</div>
+        {/* Subtitle */}
+        <div className="text-center pt-4 border-t border-slate-100">
+          <p className="text-sm lg:text-base text-slate-600">
+            <span className="font-medium">April 3, 2026</span> — Flight EY22 to Thailand
+          </p>
         </div>
       </div>
     </div>
