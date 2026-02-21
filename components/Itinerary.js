@@ -4,133 +4,127 @@ const ITINERARY_DATA = [
   {
     day: 1,
     date: 'April 3, 2026',
-    title: 'Departure to Bangkok',
+    title: 'Departure - Toronto → Abu Dhabi',
     events: [
-      { type: 'flight', time: '3:10 PM', description: 'EY22 Emirates to Bangkok', location: 'YYZ' },
+      { type: 'flight', time: '3:10 PM', description: 'EY22 Etihad Airways to Abu Dhabi', location: 'YYZ → AUH', seats: '70A, 70B' },
     ]
   },
   {
     day: 2,
     date: 'April 4, 2026',
-    title: 'Bangkok Arrival',
+    title: 'Abu Dhabi Arrival',
     events: [
-      { type: 'flight', time: '4:30 PM+1', description: 'Arrive Bangkok International', location: 'BKK' },
-      { type: 'hotel', time: '6:00 PM', description: 'Check-in at Mandarin Oriental', location: 'Bangkok' },
+      { type: 'flight', time: '12:30 PM', description: 'Arrive Abu Dhabi (local time)', location: 'AUH' },
+      { type: 'hotel', time: 'Check-in', description: 'Grand Millennium Al Wahda', location: 'Abu Dhabi', confirmation: 'EYH283203' },
     ]
   },
   {
     day: 3,
     date: 'April 5, 2026',
-    title: 'Bangkok Exploration',
+    title: 'Abu Dhabi Exploration',
     events: [
-      { type: 'activity', time: '9:00 AM', description: 'Visit Grand Palace', location: 'Bangkok' },
-      { type: 'activity', time: '2:00 PM', description: 'Floating Markets Tour', location: 'Bangkok' },
+      { type: 'activity', time: '10:00 AM', description: 'Explore Abu Dhabi city', location: 'Abu Dhabi' },
+      { type: 'activity', time: '3:00 PM', description: 'Sheikh Zayed Mosque visit', location: 'Abu Dhabi' },
     ]
   },
   {
     day: 4,
     date: 'April 6, 2026',
-    title: 'Travel to Chiang Mai',
+    title: 'Abu Dhabi → Bangkok',
     events: [
-      { type: 'flight', time: '10:00 AM', description: 'PG241 Bangkok Airways', location: 'BKK → CNX' },
-      { type: 'hotel', time: '1:00 PM', description: 'Check-in at Four Seasons', location: 'Chiang Mai' },
+      { type: 'flight', time: '8:35 AM', description: 'EY406 Etihad Airways to Bangkok', location: 'AUH → BKK', seats: '51A, 51C' },
+      { type: 'hotel', time: 'Evening', description: 'Grande Centre Point Sukhumvit 55', location: 'Bangkok', confirmation: '72071195297563' },
     ]
   },
   {
     day: 5,
     date: 'April 7, 2026',
-    title: 'Chiang Mai Culture',
+    title: 'Bangkok Exploration',
     events: [
-      { type: 'activity', time: '8:00 AM', description: 'Elephant Sanctuary', location: 'Chiang Mai' },
-      { type: 'activity', time: '3:00 PM', description: 'Temple Visit', location: 'Chiang Mai' },
+      { type: 'activity', time: '9:00 AM', description: 'Grand Palace & Wat Phra Kaew', location: 'Bangkok' },
+      { type: 'activity', time: '2:00 PM', description: 'Wat Arun (Temple of Dawn)', location: 'Bangkok' },
     ]
   },
   {
     day: 6,
     date: 'April 8, 2026',
-    title: 'Travel to Phuket',
+    title: 'Bangkok → Chiang Mai',
     events: [
-      { type: 'flight', time: '12:00 PM', description: 'PG3022 Bangkok Airways', location: 'CNX → HKT' },
-      { type: 'hotel', time: '2:00 PM', description: 'Check-in at Amanpuri', location: 'Phuket' },
+      { type: 'flight', time: '11:40 AM', description: 'TG106 Thai Airways to Chiang Mai', location: 'BKK → CNX' },
+      { type: 'hotel', time: 'Afternoon', description: 'Proud Phu Fah Maerim', location: 'Chiang Mai', confirmation: '72071197167185' },
     ]
   },
   {
     day: 7,
     date: 'April 9, 2026',
-    title: 'Island Activities',
+    title: 'Chiang Mai Culture',
     events: [
-      { type: 'activity', time: '9:00 AM', description: 'Snorkeling at Phi Phi Islands', location: 'Phuket' },
-      { type: 'activity', time: '4:00 PM', description: 'Sunset Beach Relaxation', location: 'Phuket' },
+      { type: 'activity', time: '8:00 AM', description: 'Doi Suthep Temple', location: 'Chiang Mai' },
+      { type: 'activity', time: '3:00 PM', description: 'Old City temples', location: 'Chiang Mai' },
     ]
   },
   {
     day: 8,
     date: 'April 10, 2026',
-    title: 'Water Activities',
+    title: 'Chiang Mai Adventures',
     events: [
-      { type: 'activity', time: '8:00 AM', description: 'Diving at Similan Islands', location: 'Phuket' },
-      { type: 'activity', time: '6:00 PM', description: 'Beach Dinner', location: 'Phuket' },
+      { type: 'activity', time: '9:00 AM', description: 'Elephant Nature Park', location: 'Chiang Mai' },
+      { type: 'activity', time: '6:00 PM', description: 'Night Bazaar', location: 'Chiang Mai' },
     ]
   },
   {
     day: 9,
     date: 'April 11, 2026',
-    title: 'Return to Bangkok',
+    title: 'Chiang Mai → Phuket',
     events: [
-      { type: 'flight', time: '2:00 PM', description: 'PG3023 Bangkok Airways', location: 'HKT → BKK' },
-      { type: 'activity', time: '5:00 PM', description: 'Shopping at MBK Center', location: 'Bangkok' },
+      { type: 'flight', time: '1:00 PM', description: 'FD3162 AirAsia to Phuket', location: 'CNX → HKT', seats: '24A, 24B' },
+      { type: 'hotel', time: 'Evening', description: 'Marina Gallery Resort - KACHA', location: 'Phuket', confirmation: '72071199640133' },
     ]
   },
   {
     day: 10,
     date: 'April 12, 2026',
-    title: 'Bangkok Shopping & Spa',
+    title: 'Phuket & Songkran Eve',
     events: [
-      { type: 'activity', time: '10:00 AM', description: 'Traditional Thai Massage', location: 'Bangkok' },
-      { type: 'activity', time: '2:00 PM', description: 'Chatuchak Weekend Market', location: 'Bangkok' },
+      { type: 'activity', time: '9:00 AM', description: 'Phi Phi Islands day trip', location: 'Phuket' },
+      { type: 'activity', time: '4:00 PM', description: 'Prepare for Songkran!', location: 'Phuket' },
     ]
   },
   {
     day: 11,
     date: 'April 13, 2026',
-    title: 'Rest Day',
+    title: '🎉 SONGKRAN FESTIVAL - Day 1',
     events: [
-      { type: 'activity', time: '9:00 AM', description: 'Pool & Spa at Mandarin', location: 'Bangkok' },
-      { type: 'activity', time: '6:00 PM', description: 'Dinner Cruise', location: 'Bangkok' },
+      { type: 'activity', time: 'All Day', description: 'SONGKRAN WATER FIGHT! 🌊', location: 'Phuket' },
+      { type: 'activity', time: 'Evening', description: 'Songkran celebrations', location: 'Phuket' },
     ]
   },
   {
     day: 12,
     date: 'April 14, 2026',
-    title: 'Final Shopping',
+    title: '🎉 SONGKRAN FESTIVAL - Day 2',
     events: [
-      { type: 'activity', time: '10:00 AM', description: 'Siam Paragon Shopping', location: 'Bangkok' },
-      { type: 'activity', time: '3:00 PM', description: 'Last Minute Souvenirs', location: 'Bangkok' },
+      { type: 'activity', time: 'All Day', description: 'SONGKRAN WATER FIGHT! 🌊', location: 'Phuket' },
+      { type: 'flight', time: '4:05 PM', description: 'TG212 Thai Airways to Bangkok', location: 'HKT → BKK', seats: '47A, 47B' },
+      { type: 'hotel', time: 'Evening', description: 'The Park Nine Hotel Suvarnabhumi', location: 'Bangkok', confirmation: '72071198449390' },
     ]
   },
   {
     day: 13,
     date: 'April 15, 2026',
-    title: 'Relax & Pack',
+    title: 'Bangkok → Abu Dhabi',
     events: [
-      { type: 'activity', time: '9:00 AM', description: 'Final Spa Treatment', location: 'Bangkok' },
-      { type: 'activity', time: '6:00 PM', description: 'Packing & Prep', location: 'Hotel' },
+      { type: 'flight', time: '9:45 AM', description: 'EY409 Etihad Airways to Abu Dhabi', location: 'BKK → AUH', seats: '38A, 38B' },
+      { type: 'activity', time: 'Layover', description: '~10 hour Abu Dhabi layover', location: 'AUH' },
     ]
   },
   {
     day: 14,
     date: 'April 16, 2026',
-    title: 'Departure Day',
+    title: 'Homeward Bound',
     events: [
-      { type: 'flight', time: '7:10 PM', description: 'EY23 Emirates to Toronto', location: 'BKK' },
-    ]
-  },
-  {
-    day: 15,
-    date: 'April 17, 2026',
-    title: 'Arrival Home',
-    events: [
-      { type: 'flight', time: '7:30 AM', description: 'Arrive Toronto', location: 'YYZ' },
+      { type: 'flight', time: '2:15 AM', description: 'EY21 Etihad Airways to Toronto (depart Apr 15)', location: 'AUH → YYZ', seats: '70A, 70B' },
+      { type: 'flight', time: '9:00 AM', description: 'Arrive Toronto', location: 'YYZ' },
     ]
   }
 ];
@@ -189,6 +183,8 @@ export default function Itinerary() {
                       <div className="font-semibold text-sm">{event.time}</div>
                       <div className="text-sm">{event.description}</div>
                       <div className="text-xs opacity-75 mt-1">{event.location}</div>
+                      {event.seats && <div className="text-xs opacity-75">Seats: {event.seats}</div>}
+                      {event.confirmation && <div className="text-xs opacity-75">Conf: {event.confirmation}</div>}
                     </div>
                   </div>
                 );
