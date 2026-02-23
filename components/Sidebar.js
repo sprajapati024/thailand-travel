@@ -1,7 +1,8 @@
-import { LayoutDashboard, Plane, Package, CheckSquare, MapPin, Settings, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Plane, Package, CheckSquare, MapPin, Settings, Menu, X, CloudSun } from 'lucide-react';
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'weather', label: 'Weather', icon: CloudSun },
   { id: 'itinerary', label: 'Itinerary', icon: Plane },
   { id: 'packing', label: 'Packing', icon: Package },
   { id: 'todo', label: 'Todo', icon: CheckSquare },

@@ -7,6 +7,7 @@ import PackingList from '../components/PackingList';
 import TodoList from '../components/TodoList';
 import Itinerary from '../components/Itinerary';
 import TripDetails from '../components/TripDetails';
+import Weather from '../components/Weather';
 import Settings from '../components/Settings';
 
 export default function Dashboard() {
@@ -212,6 +213,8 @@ export default function Dashboard() {
             </div>
           </div>
         );
+      case 'weather':
+        return <Weather />;
       case 'itinerary':
         return <Itinerary />;
       case 'packing':
