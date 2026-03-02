@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import MetricCards from '../components/MetricCards';
 import CountdownTimer from '../components/CountdownTimer';
+import InteractiveMap from '../components/InteractiveMap';
 import PackingList from '../components/PackingList';
 import TodoList from '../components/TodoList';
 import Itinerary from '../components/Itinerary';
@@ -197,6 +198,7 @@ export default function Dashboard() {
               destinations={destinations}
             />
             <CountdownTimer />
+            <InteractiveMap />
             <div className="grid lg:grid-cols-2 gap-8">
               <PackingList
                 items={packingItems}
